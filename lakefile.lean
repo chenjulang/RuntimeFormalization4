@@ -1,18 +1,43 @@
 import Lake
 open Lake DSL
 
-require mathlib from git
-  "https://github.com/leanprover-community/mathlib4.git"
+def moreServerArgs := #[
+  "-Dpp.unicode.fun=true", -- pretty-prints `fun a ↦ b`
+  "-DautoImplicit=false",
+  "-DrelaxedAutoImplicit=false"
+]
 
-package runtime {
-  -- add package configuration options here
-}
+-- These settings only apply during `lake build`, but not in VSCode editor.
+def moreLeanArgs := moreServerArgs
 
-lean_lib Runtime {
-  -- add library configuration options here
-}
+-- moreServerArgs
+
+package «leanCourse» where
+  moreServerArgs := moreServerArgs
+
+require mathlib from git "https://github.com/leanprover-community/mathlib4.git"
+
+-- require IMOSLLean4 from git "https://github.com/mortarsanjaya/IMOSLLean4"@"main"
+-- require Paperproof from git "https://github.com/Paper-Proof/paperproof.git"@"main"/"lean"
+-- require proofwidgets from git "https://github.com/leanprover-community/ProofWidgets4"@"v0.0.3"
+-- require alp from git "https://github.com/dwrensha/animate-lean-proofs.git"
+
+
+
+-- require MATH681CourseProject from git "https://github.com/davidowe/MATH681CourseProject.git"
+
+
+-- require MIL from git "https://github.com/avigad/mathematics_in_lean_source.git"
+-- require LADR3 from git "https://github.com/martincmartin/linear_algebra_done_right.git"
+
+-- require FM2024 from git "https://github.com/ImperialCollegeLondon/formalising-mathematics-2024.git"
+
+
+
+-- require Duper from git "https://github.com/leanprover-community/duper.git" @ "v0.0.5"
+
+
 
 @[default_target]
-lean_exe runtime {
-  root := `Main
-}
+lean_lib «LeanCourse» where
+  moreLeanArgs := moreLeanArgs
